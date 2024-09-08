@@ -2,7 +2,7 @@ Welcome to Medix.
 
 A booking management system for Healthcare.
 
-Tech Stack: Appwrite an open-source backend-as-a-service (BaaS) platform Twilio for sms notifications. Typescript Tailwind CSS Shadcn for reusable components Sentry for tracking and testing.
+Tech Stack: Appwrite an open-source backend-as-a-service (BaaS) platform Twilio for sms notifications. Typescript Tailwind CSS Shadcn for reusable components.
 
 About
 
@@ -27,6 +27,8 @@ Features:
 ✅ File Upload Using Appwrite Storage: Users can upload and store files securely within the app using Appwrite storage services.
 
 ✅ Manage and Track Application Performance Using Sentry: The application uses Sentry to monitor and track its performance and detect any errors.
+
+Passcode to ee the adminpage is: 123456
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
