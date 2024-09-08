@@ -52,11 +52,17 @@ export const PatientForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-6">
-        <section className="mb-12 space-y-4">
-          <h1 className="header">Hi there 👋</h1>
-          <p className="text-dark-700">Get started with appointments.</p>
-        </section>
+        <section className="mb-5 space-y-4 ">
+          <h1 className="header">
+            Welcome to <span className="text-green-500">Medix</span> your
+            personal health hub.
+          </h1>
 
+          <p className="text-dark-700 text-lg">
+            Ready to take the first step? Begin by booking your next appointment
+            now.
+          </p>
+        </section>
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           control={form.control}

@@ -9,7 +9,7 @@ export const StatusBadge = ({ status }: { status: Status }) => {
       className={clsx("status-badge", {
         "bg-green-500": status === "scheduled",
         "bg-gray-200": status === "pending",
-        "bg-red-500": status === "cancelled",
+        "bg-red-200": status === "cancelled",
       })}
     >
       <Image
@@ -21,9 +21,9 @@ export const StatusBadge = ({ status }: { status: Status }) => {
       />
       <p
         className={clsx("text-12-semibold capitalize", {
-          "text-green-500": status === "scheduled",
+          "text-white": status === "scheduled",
           "text-blue-500": status === "pending",
-          "text-red-500": status === "cancelled",
+          "text-gray-500": status === "cancelled",
         })}
       >
         {status}

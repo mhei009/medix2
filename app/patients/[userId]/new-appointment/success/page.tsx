@@ -22,7 +22,7 @@ const RequestSuccess = async ({
       <div className="success-img">
         <Link href="/">
           <Image
-            src="/assets/icons/logo-full.svg"
+            src="/assets/icons/logo-full.webp"
             height={1000}
             width={1000}
             alt="logo"
@@ -66,6 +66,10 @@ const RequestSuccess = async ({
           <Link href={`/patients/${userId}/new-appointment`}>
             New Appointment
           </Link>
+        </Button>
+
+        <Button variant="outline" className="shad-primary-btn" asChild>
+          <Link href={`/`}>Back to Home Page</Link>
         </Button>
 
         <p className="copyright">© 2024 CarePluse</p>

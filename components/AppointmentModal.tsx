@@ -20,8 +20,8 @@ import "react-datepicker/dist/react-datepicker.css";
 export const AppointmentModal = ({
   patientId,
   userId,
-  appointment,
   type,
+  appointment,
 }: {
   patientId: string;
   userId: string;
