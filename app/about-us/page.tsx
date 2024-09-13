@@ -27,8 +27,8 @@ const AboutUs = () => {
             </div>
           </div>
         </section>
-        {/* Video section is now handled in a client component */}
-        <VideoSection /> {/* This maintains the layout */}
+        {/* video section is a component */}
+        <VideoSection />
       </div>
     </>
   );

@@ -96,7 +96,7 @@ export const AppointmentForm = ({
           appointmentId: appointment?.$id!,
           appointment: {
             primaryPhysician: values?.primaryPhysician,
-            schedule: new Date(values?.schedule),
+            schedule: te(values?.schedule),
             status: status as Status,
             cancellationReason: values?.cancellationReason,
           },
