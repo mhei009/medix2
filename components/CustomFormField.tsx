@@ -30,7 +30,7 @@ export enum FormFieldType {
 interface CustomProps {
   control: Control<any>;
   name: string;
-  label?: string;
+  label?: string | React.ReactNode;
   placeholder?: string;
   iconSrc?: string;
   iconAlt?: string;

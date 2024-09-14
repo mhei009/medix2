@@ -50,7 +50,7 @@ const Header = () => {
           >
             <DropdownMenuItem asChild>
               <Link
-                href="/"
+                href="/support"
                 className="font-bold text-green-500 hover:text-blue-500"
               >
                 Get Started
@@ -86,7 +86,10 @@ const Header = () => {
 
       {/* Navigation Links for Larger Screens */}
       <nav className="hidden md:flex space-x-6">
-        <Link href="/" className="font-bold text-green-500 hover:text-blue-500">
+        <Link
+          href="/support"
+          className="font-bold text-green-500 hover:text-blue-500"
+        >
           Get Started
         </Link>
         <Link

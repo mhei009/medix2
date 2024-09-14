@@ -70,7 +70,7 @@ const RequestSuccess = async ({
         </Button>
 
         <Button variant="outline" className="shad-primary-btn" asChild>
-          <Link href={`/`}>Back to Home Page</Link>
+          <Link href={`/patients/${userId}/dashboard`}>Back to Dashboard</Link>
         </Button>
 
         <p className="copyright">© 2024 CarePluse</p>
