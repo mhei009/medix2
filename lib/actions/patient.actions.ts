@@ -64,7 +64,6 @@ export const registerPatient = async ({
         identificationDocument?.get("blobFile") as Blob,
         identificationDocument?.get("fileName") as string
       );
-
       file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
     }
 
@@ -105,6 +104,7 @@ export const getPatient = async (userId: string) => {
   }
 };
 
+// Get patient by userId
 export const getPatientByUserId = async (userId: string): Promise<Patient> => {
   try {
     console.log("Fetching patient for userId:", userId);
@@ -126,7 +126,7 @@ export const getPatientByUserId = async (userId: string): Promise<Patient> => {
   }
 };
 
-// Then use this to get the patientId and fetch appointments
+// Fetch appointments for the patient based on userId
 export const getPatientAppointments = async (
   userId: string
 ): Promise<Appointment[]> => {
@@ -135,28 +135,13 @@ export const getPatientAppointments = async (
     const patientId = patient.$id; // Use the patient document ID for the appointments query
     console.log("Found patientId:", patientId);
 
-    const appointments = await getPatientScheduledAppointments(patientId); // Use patientId to query appointments
-    return appointments;
-  } catch (error) {
-    console.error("Error fetching appointments for patient:", error);
-    throw error;
-  }
-};
-
-// Define getPatientScheduledAppointments
-export const getPatientScheduledAppointments = async (
-  patientId: string
-): Promise<Appointment[]> => {
-  try {
-    console.log("Fetching scheduled appointments for patientId:", patientId);
-
+    // Fetch all appointments for the patient
     const appointments = await databases.listDocuments(
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
       [
         Query.equal("patient", patientId), // Assuming 'patient' is a relationship field
-        Query.equal("status", "scheduled"),
-        Query.orderDesc("$createdAt"), //  creation by date
+        Query.orderDesc("$createdAt"), // Order by creation date
       ]
     );
 
@@ -167,9 +152,16 @@ export const getPatientScheduledAppointments = async (
       return [];
     }
 
-    return appointments.documents as Appointment[];
+    // Filter appointments for scheduled, pending, and cancelled statuses
+    const filteredAppointments = (
+      appointments.documents as Appointment[]
+    ).filter((appointment) =>
+      ["scheduled", "pending", "cancelled"].includes(appointment.status)
+    );
+
+    return filteredAppointments;
   } catch (error) {
-    console.error("Error fetching scheduled appointments:", error);
+    console.error("Error fetching appointments:", error);
     throw error;
   }
 };

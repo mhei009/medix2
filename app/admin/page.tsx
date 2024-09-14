@@ -41,7 +41,7 @@ const AdminPage = async () => {
             type="appointments"
             count={appointments.scheduledCount}
             label="Scheduled appointments"
-            icon={"/assets/icons/appointments.svg"}
+            icon={"/assets/icons/scheduled.svg"}
           />
           <StatCard
             type="pending"

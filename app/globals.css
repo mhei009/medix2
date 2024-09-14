@@ -158,11 +158,11 @@
   }
 
   .text-16-semibold {
-    @apply text-[16px] leading-[20px] font-semibold;
+    @apply text-[16px] leading-[10px] font-semibold;
   }
 
   .text-16-regular {
-    @apply text-[16px] leading-[20px] font-normal;
+    @apply text-[16px] leading-[10px] font-normal;
   }
 
   .text-14-medium {
