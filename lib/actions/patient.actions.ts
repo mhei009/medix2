@@ -1,12 +1,14 @@
 "use server";
 
 import { ID, InputFile, Query } from "node-appwrite";
+import { Appointment, Patient } from "@/types/appwrite.types";
 
 import {
   BUCKET_ID,
   DATABASE_ID,
   ENDPOINT,
   PATIENT_COLLECTION_ID,
+  APPOINTMENT_COLLECTION_ID,
   PROJECT_ID,
   databases,
   storage,
@@ -17,8 +19,7 @@ import { parseStringify } from "../utils";
 // CREATE APPWRITE USER
 export const createUser = async (user: CreateUserParams) => {
   try {
-    // Create new user -> https://appwrite.io/docs/references/1.5.x/server-nodejs/users#create
-    const newuser = await users.create(
+    const newUser = await users.create(
       ID.unique(),
       user.email,
       user.phone,
@@ -26,14 +27,12 @@ export const createUser = async (user: CreateUserParams) => {
       user.name
     );
 
-    return parseStringify(newuser);
+    return parseStringify(newUser);
   } catch (error: any) {
-    // Check existing user
     if (error && error?.code === 409) {
       const existingUser = await users.list([
         Query.equal("email", [user.email]),
       ]);
-
       return existingUser.users[0];
     }
     console.error("An error occurred while creating a new user:", error);
@@ -44,7 +43,6 @@ export const createUser = async (user: CreateUserParams) => {
 export const getUser = async (userId: string) => {
   try {
     const user = await users.get(userId);
-
     return parseStringify(user);
   } catch (error) {
     console.error(
@@ -60,20 +58,15 @@ export const registerPatient = async ({
   ...patient
 }: RegisterUserParams) => {
   try {
-    // Upload file ->  // https://appwrite.io/docs/references/cloud/client-web/storage#createFile
     let file;
     if (identificationDocument) {
-      const inputFile =
-        identificationDocument &&
-        InputFile.fromBlob(
-          identificationDocument?.get("blobFile") as Blob,
-          identificationDocument?.get("fileName") as string
-        );
-
+      const inputFile = InputFile.fromBlob(
+        identificationDocument?.get("blobFile") as Blob,
+        identificationDocument?.get("fileName") as string
+      );
       file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
     }
 
-    // Create new patient document -> https://appwrite.io/docs/references/cloud/server-nodejs/databases#createDocument
     const newPatient = await databases.createDocument(
       DATABASE_ID!,
       PATIENT_COLLECTION_ID!,
@@ -81,7 +74,7 @@ export const registerPatient = async ({
       {
         identificationDocumentId: file?.$id ? file.$id : null,
         identificationDocumentUrl: file?.$id
-          ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view??project=${PROJECT_ID}`
+          ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view?project=${PROJECT_ID}`
           : null,
         ...patient,
       }
@@ -108,5 +101,67 @@ export const getPatient = async (userId: string) => {
       "An error occurred while retrieving the patient details:",
       error
     );
+  }
+};
+
+// Get patient by userId
+export const getPatientByUserId = async (userId: string): Promise<Patient> => {
+  try {
+    console.log("Fetching patient for userId:", userId);
+
+    const patients = await databases.listDocuments(
+      DATABASE_ID!,
+      PATIENT_COLLECTION_ID!,
+      [Query.equal("userId", userId)] // Find the patient with the given userId
+    );
+
+    if (!patients.documents || patients.documents.length === 0) {
+      throw new Error("No patient found for the given userId.");
+    }
+
+    return patients.documents[0] as Patient; // Return the first matching patient
+  } catch (error) {
+    console.error("Error fetching patient:", error);
+    throw error;
+  }
+};
+
+// Fetch appointments for the patient based on userId
+export const getPatientAppointments = async (
+  userId: string
+): Promise<Appointment[]> => {
+  try {
+    const patient = await getPatientByUserId(userId); // Fetch patient by userId
+    const patientId = patient.$id; // Use the patient document ID for the appointments query
+    console.log("Found patientId:", patientId);
+
+    // Fetch all appointments for the patient
+    const appointments = await databases.listDocuments(
+      DATABASE_ID!,
+      APPOINTMENT_COLLECTION_ID!,
+      [
+        Query.equal("patient", patientId), // Assuming 'patient' is a relationship field
+        Query.orderDesc("$createdAt"), // Order by creation date
+      ]
+    );
+
+    console.log("Appointments fetched from Appwrite:", appointments);
+
+    if (!appointments.documents || !Array.isArray(appointments.documents)) {
+      console.log("No appointments found.");
+      return [];
+    }
+
+    // Filter appointments for scheduled, pending, and cancelled statuses
+    const filteredAppointments = (
+      appointments.documents as Appointment[]
+    ).filter((appointment) =>
+      ["scheduled", "pending", "cancelled"].includes(appointment.status)
+    );
+
+    return filteredAppointments;
+  } catch (error) {
+    console.error("Error fetching appointments:", error);
+    throw error;
   }
 };

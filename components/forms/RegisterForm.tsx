@@ -186,7 +186,7 @@ const RegisterForm = ({ user }: { user: User }) => {
               control={form.control}
               name="address"
               label="Address"
-              placeholder="14 street, New york, NY - 5101"
+              placeholder="bldg. 123, street, city"
             />
 
             <CustomFormField
@@ -194,7 +194,6 @@ const RegisterForm = ({ user }: { user: User }) => {
               control={form.control}
               name="occupation"
               label="Occupation"
-              placeholder=" Software Engineer"
             />
           </div>
 
@@ -205,7 +204,7 @@ const RegisterForm = ({ user }: { user: User }) => {
               control={form.control}
               name="emergencyContactName"
               label="Emergency contact name"
-              placeholder="Guardian's name"
+              placeholder="Jane Doe"
             />
 
             <CustomFormField
@@ -242,6 +241,7 @@ const RegisterForm = ({ user }: { user: User }) => {
                     className="rounded-full border border-dark-500"
                   />
                   <p>{doctor.name}</p>
+                  <p className="text-sm text-gray-500">{doctor.specialty}</p>
                 </div>
               </SelectItem>
             ))}
@@ -273,7 +273,7 @@ const RegisterForm = ({ user }: { user: User }) => {
               control={form.control}
               name="familyMedicalHistory"
               label=" Family medical history (if relevant)"
-              placeholder="Mother had brain cancer, Father has hypertension"
+              placeholder=" Diabetes, Hypertension, Cancer"
             />
 
             <CustomFormField
@@ -281,7 +281,7 @@ const RegisterForm = ({ user }: { user: User }) => {
               control={form.control}
               name="pastMedicalHistory"
               label="Past medical history"
-              placeholder="Appendectomy in 2015, Asthma diagnosis in childhood"
+              placeholder="Surgery, Chronic illness, Hospitalization"
             />
           </div>
         </section>
@@ -335,23 +335,35 @@ const RegisterForm = ({ user }: { user: User }) => {
             fieldType={FormFieldType.CHECKBOX}
             control={form.control}
             name="treatmentConsent"
-            label="I consent to receive treatment for my health condition."
+            label="I hereby provide my informed consent to receive medical treatment and care for my health condition from Medix. I understand that this treatment may involve diagnostic procedures, therapeutic interventions, and other necessary medical services as determined by my healthcare provider to improve or manage my condition."
           />
 
           <CustomFormField
             fieldType={FormFieldType.CHECKBOX}
             control={form.control}
             name="disclosureConsent"
-            label="I consent to the use and disclosure of my health
-            information for treatment purposes."
+            label="I consent to the use and disclosure of my health information by Medix for the purpose of treatment, care coordination, and communication with other healthcare providers involved in my care only."
           />
 
           <CustomFormField
             fieldType={FormFieldType.CHECKBOX}
             control={form.control}
             name="privacyConsent"
-            label="I acknowledge that I have reviewed and agree to the
-            privacy policy"
+            label={
+              <>
+                I acknowledge that I have thoroughly reviewed and agree to the
+                terms outlined in Medix's{" "}
+                <a
+                  href="https://www.freeprivacypolicy.com/live/ad7b0088-d528-4733-8873-2bef9a6ccb15"
+                  target="_blank"
+                  className="text-green-500"
+                  style={{ textDecoration: "underline" }}
+                >
+                  Privacy Policy
+                </a>
+                .
+              </>
+            }
           />
         </section>
 

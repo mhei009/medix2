@@ -8,7 +8,7 @@ const Register = async ({ params: { userId } }: SearchParamProps) => {
   const user = await getUser(userId);
   const patient = await getPatient(userId);
 
-  if (patient) redirect(`/patients/${userId}/new-appointment`);
+  if (patient) redirect(`/patients/${userId}/dashboard`);
 
   return (
     <div className="flex h-screen max-h-screen">
@@ -29,7 +29,7 @@ const Register = async ({ params: { userId } }: SearchParamProps) => {
       </section>
 
       <Image
-        src="/assets/images/register-img.png"
+        src="/assets/images/register-img.webp"
         height={1000}
         width={1000}
         alt="patient"

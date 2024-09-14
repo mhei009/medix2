@@ -6,9 +6,16 @@ type StatCardProps = {
   count: number;
   label: string;
   icon: string;
+  children?: React.ReactNode;
 };
 
-export const StatCard = ({ count = 0, label, icon, type }: StatCardProps) => {
+export const StatCard = ({
+  count = 0,
+  label,
+  icon,
+  type,
+  children,
+}: StatCardProps) => {
   return (
     <div
       className={clsx("stat-card", {
@@ -22,13 +29,15 @@ export const StatCard = ({ count = 0, label, icon, type }: StatCardProps) => {
           src={icon}
           height={32}
           width={32}
-          alt="appointments"
+          alt={label}
           className="size-8 w-fit"
         />
-        <h2 className="text-32-bold text-white">{count}</h2>
+        <h2 className="text-32-bold text-black">{count}</h2>
       </div>
-
       <p className="text-14-regular">{label}</p>
+
+      {/* Render children if they are provided */}
+      {children && <div className="mt-4">{children}</div>}
     </div>
   );
 };

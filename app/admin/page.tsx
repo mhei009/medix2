@@ -5,6 +5,7 @@ import { StatCard } from "@/components/StatCard";
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/DataTable";
 import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
+import SignOutButton from "@/components/SignOutButton";
 
 const AdminPage = async () => {
   const appointments = await getRecentAppointmentList();
@@ -21,8 +22,10 @@ const AdminPage = async () => {
             className="h-8 w-fit"
           />
         </Link>
-
-        <p className="text-16-semibold">Admin Dashboard</p>
+        <div className="flex flex-col items-end space-y-1  ">
+          <p className="text-16-semibold">Admin Dashboard</p>
+          <SignOutButton></SignOutButton>
+        </div>
       </header>
 
       <main className="admin-main">
@@ -38,7 +41,7 @@ const AdminPage = async () => {
             type="appointments"
             count={appointments.scheduledCount}
             label="Scheduled appointments"
-            icon={"/assets/icons/appointments.svg"}
+            icon={"/assets/icons/scheduled.svg"}
           />
           <StatCard
             type="pending"

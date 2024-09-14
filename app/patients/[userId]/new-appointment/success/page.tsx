@@ -50,6 +50,7 @@ const RequestSuccess = async ({
               className="size-6"
             />
             <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
+            <p className="text-sm text-gray-500">{doctor?.specialty}</p>
           </div>
           <div className="flex gap-2">
             <Image
@@ -69,7 +70,7 @@ const RequestSuccess = async ({
         </Button>
 
         <Button variant="outline" className="shad-primary-btn" asChild>
-          <Link href={`/`}>Back to Home Page</Link>
+          <Link href={`/patients/${userId}/dashboard`}>Back to Dashboard</Link>
         </Button>
 
         <p className="copyright">© 2024 CarePluse</p>
