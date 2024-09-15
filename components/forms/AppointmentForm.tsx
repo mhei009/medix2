@@ -95,10 +95,10 @@ export const AppointmentForm = ({
           userId,
           appointmentId: appointment?.$id!,
           appointment: {
-            primaryPhysician: values?.primaryPhysician,
-            schedule: te(values?.schedule),
+            primaryPhysician: values.primaryPhysician,
+            schedule: new Date(values.schedule),
             status: status as Status,
-            cancellationReason: values?.cancellationReason,
+            cancellationReason: values.cancellationReason,
           },
           type,
         };
@@ -159,12 +159,7 @@ export const AppointmentForm = ({
                       alt="doctor"
                       className="rounded-full border border-dark-500"
                     />
-                    <div>
-                      <p>{doctor.name}</p>
-                      <p className="text-sm text-gray-500">
-                        {doctor.specialty}
-                      </p>
-                    </div>
+                    <p>{doctor.name}</p>
                   </div>
                 </SelectItem>
               ))}
