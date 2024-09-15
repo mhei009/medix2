@@ -160,6 +160,7 @@ export const AppointmentForm = ({
                       className="rounded-full border border-dark-500"
                     />
                     <p>{doctor.name}</p>
+                    <p className="text-sm text-gray-500">{doctor?.specialty}</p>
                   </div>
                 </SelectItem>
               ))}

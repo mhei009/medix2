@@ -73,7 +73,7 @@ const RequestSuccess = async ({
           <Link href={`/patients/${userId}/dashboard`}>Back to Dashboard</Link>
         </Button>
 
-        <p className="copyright">© 2024 CarePluse</p>
+        <p className="copyright">© 2024 Medix</p>
       </div>
     </div>
   );

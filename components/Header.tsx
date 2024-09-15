@@ -50,7 +50,7 @@ const Header = () => {
           >
             <DropdownMenuItem asChild>
               <Link
-                href="/support"
+                href="/"
                 className="font-bold text-green-500 hover:text-blue-500"
               >
                 Get Started
@@ -74,10 +74,10 @@ const Header = () => {
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link
-                href="/faq"
+                href="/support"
                 className="font-bold text-gray-700 hover:text-blue-500"
               >
-                FAQs
+                Dev doc FAQs
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -86,10 +86,7 @@ const Header = () => {
 
       {/* Navigation Links for Larger Screens */}
       <nav className="hidden md:flex space-x-6">
-        <Link
-          href="/support"
-          className="font-bold text-green-500 hover:text-blue-500"
-        >
+        <Link href="/" className="font-bold text-green-500 hover:text-blue-500">
           Get Started
         </Link>
         <Link
@@ -105,10 +102,10 @@ const Header = () => {
           Contact Us
         </Link>
         <Link
-          href="/faq"
+          href="/support"
           className="font-bold text-gray-700 hover:text-blue-500"
         >
-          FAQs
+          Dev doc FAQs
         </Link>
       </nav>
     </header>

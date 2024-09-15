@@ -60,9 +60,10 @@ const PatientPage = ({ params }: { params: { userId: string } }) => {
     pending: appointments.filter((a) => a.status === "pending"),
     cancelled: appointments.filter((a) => a.status === "cancelled"),
   };
+  console.log("Grouped Appointments:", groupedAppointments);
 
   return (
-    <div className="mx-auto flex max-w-7xl flex-col space-y-14">
+    <div className="mx-auto flex flex-col min-h-screen max-w-7xl space-y-14">
       {/* Header */}
       <header className="admin-header flex items-center justify-between p-4 border-b border-gray-200">
         {/* Logo */}
@@ -76,7 +77,7 @@ const PatientPage = ({ params }: { params: { userId: string } }) => {
           />
         </Link>
 
-        {/* Mobile Menu Button */}
+        {/* mobile menu */}
         <div className="md:hidden">
           <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none">
@@ -102,7 +103,7 @@ const PatientPage = ({ params }: { params: { userId: string } }) => {
               <DropdownMenuItem asChild>
                 <Link
                   href="/new-appointment"
-                  className="font-bold text-green-500 hover:text-blue-500"
+                  className="font-bold text-green-500 hover:text-blue-500 underline"
                 >
                   Book Appointment
                 </Link>
@@ -148,10 +149,10 @@ const PatientPage = ({ params }: { params: { userId: string } }) => {
 
           {/* Book Appointment Button */}
           <Link
-            href="/new-appointment"
-            className="text-green-300 text-16-semibold underline"
+            className="text-green-300 underline"
+            href={`/patients/${params.userId}/new-appointment`}
           >
-            Book Appointment
+            New Appointment
           </Link>
 
           {/* Sign Out Button */}
@@ -159,7 +160,8 @@ const PatientPage = ({ params }: { params: { userId: string } }) => {
         </nav>
       </header>
 
-      <main className="admin-main p-4">
+      {/* Main content */}
+      <main className="admin-main flex-grow p-4">
         <section className="w-full space-y-4">
           <h1 className="header text-2xl font-bold">Welcome 👋</h1>
           <p className="text-dark-700">
@@ -171,6 +173,10 @@ const PatientPage = ({ params }: { params: { userId: string } }) => {
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
           {Object.keys(groupedAppointments).map((status) => {
             const statusKey = status as Status;
+            console.log(
+              `${statusKey} count:`,
+              groupedAppointments[statusKey].length
+            ); // Log counts
             return (
               <StatCard
                 key={statusKey}
@@ -208,6 +214,11 @@ const PatientPage = ({ params }: { params: { userId: string } }) => {
           })}
         </section>
       </main>
+
+      {/* Footer */}
+      <footer className="py-4 text-center">
+        <p className="text-sm text-gray-500">© 2024 Medix</p>
+      </footer>
     </div>
   );
 };

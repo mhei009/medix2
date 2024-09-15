@@ -39,7 +39,6 @@ export const createUser = async (user: CreateUserParams) => {
   }
 };
 
-// GET USER
 export const getUser = async (userId: string) => {
   try {
     const user = await users.get(userId);
@@ -104,7 +103,7 @@ export const getPatient = async (userId: string) => {
   }
 };
 
-// Get patient by userId
+// get patient by userId
 export const getPatientByUserId = async (userId: string): Promise<Patient> => {
   try {
     console.log("Fetching patient for userId:", userId);
@@ -112,14 +111,14 @@ export const getPatientByUserId = async (userId: string): Promise<Patient> => {
     const patients = await databases.listDocuments(
       DATABASE_ID!,
       PATIENT_COLLECTION_ID!,
-      [Query.equal("userId", userId)] // Find the patient with the given userId
+      [Query.equal("userId", userId)] // find the patient with the given userId
     );
 
     if (!patients.documents || patients.documents.length === 0) {
       throw new Error("No patient found for the given userId.");
     }
 
-    return patients.documents[0] as Patient; // Return the first matching patient
+    return patients.documents[0] as Patient;
   } catch (error) {
     console.error("Error fetching patient:", error);
     throw error;
@@ -131,18 +130,15 @@ export const getPatientAppointments = async (
   userId: string
 ): Promise<Appointment[]> => {
   try {
-    const patient = await getPatientByUserId(userId); // Fetch patient by userId
-    const patientId = patient.$id; // Use the patient document ID for the appointments query
+    const patient = await getPatientByUserId(userId);
+    const patientId = patient.$id;
     console.log("Found patientId:", patientId);
 
-    // Fetch all appointments for the patient
+    // fetch all appointments for the patient
     const appointments = await databases.listDocuments(
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
-      [
-        Query.equal("patient", patientId), // Assuming 'patient' is a relationship field
-        Query.orderDesc("$createdAt"), // Order by creation date
-      ]
+      [Query.equal("patient", patientId), Query.orderDesc("$createdAt")]
     );
 
     console.log("Appointments fetched from Appwrite:", appointments);
@@ -152,7 +148,6 @@ export const getPatientAppointments = async (
       return [];
     }
 
-    // Filter appointments for scheduled, pending, and cancelled statuses
     const filteredAppointments = (
       appointments.documents as Appointment[]
     ).filter((appointment) =>
