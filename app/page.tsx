@@ -28,7 +28,6 @@ const Home = ({ searchParams }: { searchParams: { admin?: string } }) => {
             </div>
           </div>
         </section>
-        {/* Include the client-side video component here */}
         <VideoSection /> {/* This ensures the layout stays the same */}
       </div>
     </>

@@ -23,7 +23,7 @@ const AdminPage = async () => {
           />
         </Link>
         <div className="flex flex-col items-end space-y-1  ">
-          <p className="text-16-semibold">Admin Dashboard</p>
+          <p className="text-16-semibold text-green-400">Admin Dashboard</p>
           <SignOutButton></SignOutButton>
         </div>
       </header>
